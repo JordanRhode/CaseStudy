@@ -2,7 +2,7 @@
 using System.Drawing;
 namespace CaseStudy.Forms
 {
-    partial class AdminPanel
+    partial class frmAdminPanel
     {
         /// <summary>
         /// Required designer variable.
@@ -30,7 +30,7 @@ namespace CaseStudy.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AdminPanel));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmAdminPanel));
             this.lblWelcome = new System.Windows.Forms.Label();
             this.btnCustomerManager = new System.Windows.Forms.Button();
             this.btnManageProducts = new System.Windows.Forms.Button();

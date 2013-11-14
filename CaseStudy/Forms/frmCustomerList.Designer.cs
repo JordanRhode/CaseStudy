@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
 namespace CaseStudy.Forms
 {
-    partial class CustomerList
+    partial class frmCustomerList
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@ namespace CaseStudy.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CustomerList));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmCustomerList));
             this.lstCustomers = new System.Windows.Forms.ListBox();
             this.lblCustomers = new System.Windows.Forms.Label();
             this.btnAddCustomer = new System.Windows.Forms.Button();

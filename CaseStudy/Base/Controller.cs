@@ -13,7 +13,7 @@ namespace CaseStudy.Base
     {
         public static void Login(bool initialLoad)
         {
-            Login login = new Login();
+            frmLogin login = new frmLogin();
             login.Show();
             if (initialLoad)
             {
@@ -31,12 +31,12 @@ namespace CaseStudy.Base
         {
             if (UserInfo.CurrentUser.PersonType == Person.PersonTypes.Admin)
             {
-                AdminPanel adminPanel = new AdminPanel();
+                frmAdminPanel adminPanel = new frmAdminPanel();
                 adminPanel.ShowDialog();
             }
             else
             {
-                CustomerPanel customerPanel = new CustomerPanel();
+                frmCustomerPanel customerPanel = new frmCustomerPanel();
                 customerPanel.ShowDialog();
             }
         }

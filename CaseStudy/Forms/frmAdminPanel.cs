@@ -11,10 +11,10 @@ using System.Windows.Forms;
 
 namespace CaseStudy.Forms
 {
-    public partial class AdminPanel : Form
+    public partial class frmAdminPanel : Form
     {
         private bool loggingOut = false;
-        public AdminPanel()
+        public frmAdminPanel()
         {
             InitializeComponent();
             lblWelcome.Text = string.Format("Welcome, {0}!", UserInfo.CurrentUser.FirstName);
@@ -22,7 +22,7 @@ namespace CaseStudy.Forms
 
         private void btnCustomerManager_Click(object sender, EventArgs e)
         {
-            CustomerList customerList = new CustomerList();
+            frmCustomerList customerList = new frmCustomerList();
             customerList.ShowDialog();
         }
 

@@ -6,9 +6,9 @@ using System.Windows.Forms;
 
 namespace CaseStudy.Forms
 {
-    public partial class CustomerList : Form
+    public partial class frmCustomerList : Form
     {
-        public CustomerList()
+        public frmCustomerList()
         {
             InitializeComponent();
         }

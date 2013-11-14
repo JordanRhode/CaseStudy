@@ -1,6 +1,6 @@
 ﻿namespace CaseStudy.Forms
 {
-    partial class CustomerPanel
+    partial class frmCustomerPanel
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CustomerPanel));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmCustomerPanel));
             this.SuspendLayout();
             // 
             // CustomerPanel

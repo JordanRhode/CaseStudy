@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace CaseStudy.Forms
 {
-    public partial class CustomerPanel : Form
+    public partial class frmCustomerPanel : Form
     {
-        public CustomerPanel()
+        public frmCustomerPanel()
         {
             InitializeComponent();
         }

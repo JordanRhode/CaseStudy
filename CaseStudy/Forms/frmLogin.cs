@@ -13,10 +13,10 @@ using System.Windows.Forms;
 
 namespace CaseStudy
 {
-    public partial class Login : Form
+    public partial class frmLogin : Form
     {
         private bool exitApp = true;
-        public Login()
+        public frmLogin()
         {
             InitializeComponent();
         }
