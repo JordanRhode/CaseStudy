@@ -10,13 +10,6 @@
             set { _addressID = value; }
         }
 
-        private Person _user = null;
-        public Person User
-        {
-            get { return _user; }
-            set { _user = value; }
-        }
-
         private string _street = null;
         public string Street
         {
@@ -31,11 +24,11 @@
             set { _city = value; }
         }
 
-        private string _stateCode = null;
-        public string StateCode
+        private string _state = null;
+        public string State
         {
-            get { return _stateCode; }
-            set { _stateCode = value; }
+            get { return _state; }
+            set { _state = value; }
         }
 
         private int? _zip = null;
@@ -55,7 +48,7 @@
             _addressID = addressID;
             _street = street;
             _city = city;
-            _stateCode = state;
+            _state = state;
             _zip = zip;
 
         }
@@ -65,10 +58,10 @@
             if (obj is Address)
             {
                 Address address = (Address)obj;
-                if (address.Street != null && address.City != null && address.StateCode != null && address.Zip != null)
+                if (address.Street != null && address.City != null && address.State != null && address.Zip != null)
                 {
                     return ((this.Street == address.Street) && (this.City == address.City) &&
-                        (this.StateCode == address.StateCode) && (this.Zip == address.Zip));
+                        (this.State == address.State) && (this.Zip == address.Zip));
                 }
             }
             return false;
@@ -76,7 +69,7 @@
 
         public override string ToString()
         {
-            return string.Format("Street: {0}, City: {1}, State: {2}, Zip: {3}", this.Street, this.City, this.StateCode, this.Zip);
+            return string.Format("Street: {0}, City: {1}, State: {2}, Zip: {3}", this.Street, this.City, this.State, this.Zip);
         }
 
         public override int GetHashCode()

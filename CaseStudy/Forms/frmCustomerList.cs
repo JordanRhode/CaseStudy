@@ -18,8 +18,9 @@ namespace CaseStudy.Forms
         private void CustomerList_Load(object sender, EventArgs e)
         {
             //customers = TextCustomerDB.GetCustomers();
-            customers = XMLCustomerDB.GetCustomers();
+            //customers = XMLCustomerDB.GetCustomers();
             //customers = BinaryCustomerDB.GetCustomers();
+            customers = CustomerDB.GetCustomers();
             FillCustomerListBox();
         }
 

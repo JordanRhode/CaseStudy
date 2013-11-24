@@ -44,7 +44,7 @@ namespace CaseStudy.Forms
                 }
                 _customerToModify.Address.Street = txtStreet.Text;
                 _customerToModify.Address.City = txtCity.Text;
-                _customerToModify.Address.StateCode = txtState.Text;
+                _customerToModify.Address.State = txtState.Text;
                 _customerToModify.Address.Zip = int.Parse(txtZip.Text);
 
                 base.customer = _customerToModify;
@@ -73,7 +73,7 @@ namespace CaseStudy.Forms
                 }
                 base.txtStreet.Text = _customerToModify.Address.Street;
                 base.txtCity.Text = _customerToModify.Address.City;
-                base.txtState.Text = _customerToModify.Address.StateCode;
+                base.txtState.Text = _customerToModify.Address.State;
                 base.txtZip.Text = _customerToModify.Address.Zip.ToString();
             }
         }

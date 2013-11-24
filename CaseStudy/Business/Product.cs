@@ -28,8 +28,8 @@ namespace CaseStudy.Business
             set { _description = value; }
         }
 
-        private long? _price = null;
-        public long? Price
+        private int? _price = null;
+        public int? Price
         {
             get { return _price; }
             set { _price = value; }

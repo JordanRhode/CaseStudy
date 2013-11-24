@@ -13,15 +13,29 @@ namespace CaseStudy.Business
             set { _customerID = value; }
         }
 
+        private long? _personID = null;
+        public long? PersonID
+        {
+            get { return _personID; }
+            set { _personID = value; }
+        }
+
+        private long? _responsiblePartyID = null;
+        public long? ResponsiblePartyID { get; set; }
+
         private Customer _responsibleParty = null;
         public Customer ResponsibleParty
         {
             get { return _responsibleParty; }
-            set { _responsibleParty = value; }
+            set 
+            { 
+                _responsibleParty = value;
+                _responsiblePartyID = _responsibleParty._responsiblePartyID;
+            }
         }
 
         private List<Customer> _dependants = null;
-        public IEnumerable<Customer> Dependants
+        public List<Customer> Dependants
         {
             get { return _dependants; }
         }
@@ -53,6 +67,7 @@ namespace CaseStudy.Business
         {
             _customerID = customerID;
             _type = type;
+            _personID = personID;
         }
 
         public void AddDependant(Customer dependant)

@@ -17,16 +17,31 @@ namespace CaseStudy.Base
             set { _title = value; }
         }
 
-        public static bool IsPresent(TextBox textBox)
+        public static bool IsPresent(Object text)
         {
-            if (textBox.Text == "")
+            if (text is TextBox)
             {
-                MessageBox.Show(string.Format("{0} is a required field.", textBox.Tag), Title);
-                textBox.Focus();
-                return false;
+                TextBox textBox = (TextBox)text;
+                if (textBox.Text == "")
+                {
+                    MessageBox.Show(string.Format("{0} is a required field.", textBox.Tag), Title);
+                    textBox.Focus();
+                    return false;
+                }
+            }
+            else if (text is RichTextBox)
+            {
+                RichTextBox richTextBox = (RichTextBox)text;
+                if (richTextBox.Text == "")
+                {
+                    MessageBox.Show(string.Format("{0} is a required field.", richTextBox.Tag), Title);
+                    richTextBox.Focus();
+                    return false;
+                }
             }
             return true;
         }
+
 
         public static bool IsInt(TextBox textBox)
         {

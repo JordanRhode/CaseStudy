@@ -1,2 +1,0 @@
-123123|24545|Student|Customer|Tim|Howard|03/06/1979 12:00:00 AM|12454|34291 Center St.|Stevens Point|WI|54481
-71496|69733|Student|Customer|Jordan|Rhode|11/10/2013 4:19:37 PM|3131|4284 Steep Rd|Rhinelander|WI|54481

@@ -31,6 +31,9 @@ namespace CaseStudy.Business
             get { return string.Format("{0} {1}", FirstName, LastName); }
         }
 
+        private string _email = null;
+        public string Email { get; set; }
+
         private Address _address = null;
         public Address Address
         {
@@ -75,12 +78,7 @@ namespace CaseStudy.Business
 
         public void SetAddress(Address address)
         {
-            if (_address != null)
-            {
-                _address.User = null;
-            }
             _address = address;
-            _address.User = this;
         }
 
         public override bool Equals(object obj)

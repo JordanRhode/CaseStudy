@@ -20,17 +20,21 @@
   <Class Name="CaseStudy.Business.Address">
     <Position X="10.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>QAABAAAAAEAgAAAMiAAACAAAAAAAAIAAAAIAACACAEA=</HashCode>
+      <HashCode>QAAAAAAAAEAgAAAMgAAACAAAAAAAAIAAAAIABCACAAA=</HashCode>
       <FileName>Business\Address.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="User" />
-    </ShowAsAssociation>
   </Class>
   <Class Name="CaseStudy.Business.Person">
     <Position X="6.75" Y="0.5" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="CaseStudy.Business.Person.PersonTypes" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Business\Person.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
     <TypeIdentifier>
-      <HashCode>QAEAAGAAAAAAAIAEgIEAAAAAAAAQAIACAAAAAEAQAAg=</HashCode>
+      <HashCode>QAEAAGAAgAAAAIAEoIEAAAAAAAAQAIACAAAAAEAQAAg=</HashCode>
       <FileName>Business\Person.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -54,7 +58,7 @@
       </Enum>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AAAAAAARAAAAAEQEggEAAAAAEAAAAIAAAQAgAAAAAAA=</HashCode>
+      <HashCode>QAAAAAARAAAAAEQEgoEAAAAAEAAAAIAAIQAgAAAAAAE=</HashCode>
       <FileName>Business\Customer.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>

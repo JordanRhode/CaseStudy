@@ -37,6 +37,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -52,8 +53,10 @@
     <Compile Include="Business\Address.cs" />
     <Compile Include="Business\Admin.cs" />
     <Compile Include="Business\Customer.cs" />
-    <Compile Include="DataAccess\BinaryCustomerDB.cs" />
-    <Compile Include="DataAccess\TextCustomerDB.cs" />
+    <Compile Include="DataAccess\AddressDB.cs" />
+    <Compile Include="DataAccess\CaseStudyDB.cs" />
+    <Compile Include="DataAccess\CustomerDB.cs" />
+    <Compile Include="DataAccess\PersonDB.cs" />
     <Compile Include="DataAccess\XMLCustomerDB.cs" />
     <Compile Include="Business\Product.cs" />
     <Compile Include="Business\Person.cs" />
@@ -70,12 +73,6 @@
     <Compile Include="Forms\frmCustomerPanel.Designer.cs">
       <DependentUpon>frmCustomerPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmModifyCustomer.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\frmModifyCustomer.Designer.cs">
-      <DependentUpon>frmModifyCustomer.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\frmLogin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -88,6 +85,18 @@
     <Compile Include="Forms\frmCustomerList.Designer.cs">
       <DependentUpon>frmCustomerList.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\frmModifyCustomer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmModifyCustomer.Designer.cs">
+      <DependentUpon>frmModifyCustomer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmModifyProduct.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmModifyProduct.Designer.cs">
+      <DependentUpon>frmModifyProduct.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\frmNewCustomer.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -95,6 +104,18 @@
       <DependentUpon>frmNewCustomer.cs</DependentUpon>
     </Compile>
     <Compile Include="Base\Program.cs" />
+    <Compile Include="Forms\frmNewProduct.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmNewProduct.Designer.cs">
+      <DependentUpon>frmNewProduct.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmProductList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmProductList.Designer.cs">
+      <DependentUpon>frmProductList.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Base\Validator.cs" />
     <EmbeddedResource Include="Forms\frmAdminPanel.resx">
@@ -103,17 +124,21 @@
     <EmbeddedResource Include="Forms\frmCustomerPanel.resx">
       <DependentUpon>frmCustomerPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmModifyCustomer.resx">
-      <DependentUpon>frmModifyCustomer.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmLogin.resx">
       <DependentUpon>frmLogin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmCustomerList.resx">
       <DependentUpon>frmCustomerList.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmModifyCustomer.resx" />
     <EmbeddedResource Include="Forms\frmNewCustomer.resx">
       <DependentUpon>frmNewCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmNewProduct.resx">
+      <DependentUpon>frmNewProduct.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmProductList.resx">
+      <DependentUpon>frmProductList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -125,7 +150,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <None Include="Business\BusinessClasses.cd" />
-    <None Include="DataAccess\CustomerData.dat" />
     <None Include="Properties\DataSources\CaseStudy.Business.Customer+Types.datasource" />
     <None Include="Properties\DataSources\CaseStudy.Business.Customer.datasource" />
     <None Include="Properties\Settings.settings">
@@ -142,7 +166,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DataAccess\CustomerData.txt" />
+    <Content Include="DataAccess\CaseStudyDB.sdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="DataAccess\CustomerData.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

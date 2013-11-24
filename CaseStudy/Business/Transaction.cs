@@ -41,6 +41,9 @@ namespace CaseStudy.Business
             get { return _date; }
             set { _date = value; }
         }
+
+        private bool _paid = false;
+        public bool Paid { get; set; }
         #endregion
 
         public void AddProduct(Product product, int quantity)

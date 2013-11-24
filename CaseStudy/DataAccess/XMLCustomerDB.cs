@@ -138,7 +138,7 @@ namespace CaseStudy.DataAccess
                 xmlOut.WriteAttributeString("id", customer.Address.AddressID.Value.ToString());
                 xmlOut.WriteElementString("street", customer.Address.Street);
                 xmlOut.WriteElementString("city", customer.Address.City);
-                xmlOut.WriteElementString("state", customer.Address.StateCode);
+                xmlOut.WriteElementString("state", customer.Address.State);
                 xmlOut.WriteElementString("zipcode", customer.Address.Zip.Value.ToString());
                 xmlOut.WriteEndElement();
                 xmlOut.WriteEndElement();
