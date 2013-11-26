@@ -25,9 +25,21 @@ namespace CaseStudy.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::System.Drawing.Font Setting {
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=|DataDirectory|\\CaseStudyDB.sdf")]
+        public string CaseStudyDBConnectionString {
             get {
-                return ((global::System.Drawing.Font)(this["Setting"]));
+                return ((string)(this["CaseStudyDBConnectionString"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=|DataDirectory|\\bin\\Debug\\CaseStudyDB.sdf")]
+        public string CaseStudyDBConnectionString1 {
+            get {
+                return ((string)(this["CaseStudyDBConnectionString1"]));
             }
         }
     }

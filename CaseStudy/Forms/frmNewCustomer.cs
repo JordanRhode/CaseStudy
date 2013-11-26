@@ -1,15 +1,22 @@
 ﻿using CaseStudy.Base;
 using CaseStudy.Business;
+using CaseStudy.DataAccess;
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace CaseStudy
 {
     public partial class frmNewCustomer : Form
     {
+        private List<Customer> responsiblePartyCustomers = null;
+        internal Customer responsibleParty = null;
+
         public frmNewCustomer()
         {
             InitializeComponent();
+            responsiblePartyCustomers = CustomerDB.GetCustomers(true);
+            comboResponsibleParty.DataSource = responsiblePartyCustomers;
             comboType.DataSource = Enum.GetValues(typeof(Customer.Types));
             UpdateEnabledControls(false);
         }
@@ -26,12 +33,29 @@ namespace CaseStudy
         {
             if (IsValidData())
             {
-                Random randomNum = new Random();
-                Address address = new Address(randomNum.Next(1000, 9999), txtStreet.Text, 
-                                              txtCity.Text, txtState.Text, Int32.Parse(txtZip.Text));
-                Customer.Types type = (Customer.Types)Enum.Parse(typeof(Customer.Types), comboType.SelectedItem.ToString());
-                customer = new Customer(randomNum.Next(10000, 99999), type, randomNum.Next(10000, 99999), txtFirstName.Text,
-                                        txtLastName.Text, dateDOB.Value, Person.PersonTypes.Customer);
+                Address address = new Address();
+                
+                customer = new Customer();
+                customer.FirstName = txtFirstName.Text;
+                customer.LastName = txtLastName.Text;
+                customer.DateOfBirth = dateDOB.Value;
+                customer.Type = (Customer.Types)Enum.Parse(typeof(Customer.Types), comboType.SelectedItem.ToString());
+                customer.Email = ""; //TODO: Email
+
+                if(chkResponsibleParty.Checked)
+                {
+                    customer.PersonType = Person.PersonTypes.ResponsibleParty;
+                    address.Street = txtStreet.Text;
+                    address.City = txtCity.Text;
+                    address.State = txtState.Text;
+                    address.Zip = Int32.Parse(txtZip.Text);
+                }
+                else
+                {
+                    address = responsibleParty.Address;
+                    customer.PersonType = Person.PersonTypes.Customer;
+                    customer.ResponsiblePartyID = responsibleParty.CustomerID;
+                }
                 customer.SetAddress(address);
                 this.Close();
             }
@@ -59,7 +83,16 @@ namespace CaseStudy
 
         private void comboResponsibleParty_IndexChanged(object sender, EventArgs e)
         {
-            //TODO: get responsible party address and autofill address fields
+            responsibleParty = (Customer)comboResponsibleParty.SelectedItem;
+            FillAddressWithResponsibleParty();
+        }
+
+        private void FillAddressWithResponsibleParty()
+        {
+            txtStreet.Text = responsibleParty.Address.Street;
+            txtCity.Text = responsibleParty.Address.City;
+            txtState.Text = responsibleParty.Address.State;
+            txtZip.Text = responsibleParty.Address.Zip.ToString();
         }
 
         private void chkResponsibleParty_CheckedChanged(object sender, EventArgs e)
@@ -71,6 +104,7 @@ namespace CaseStudy
             else
             {
                 UpdateEnabledControls(false);
+                FillAddressWithResponsibleParty();
             }
         }
 
@@ -86,13 +120,16 @@ namespace CaseStudy
                 lblState.Enabled = true;
                 lblZip.Enabled = true;
                 txtCity.Enabled = true;
+                txtCity.Text = "";
                 txtStreet.Enabled = true;
+                txtStreet.Text = "";
                 txtState.Enabled = true;
+                txtState.Text = "";
                 txtZip.Enabled = true;
+                txtZip.Text = "";
             }
             else
             {
-                //TODO: get responsible parties from db
                 lblResponsibleParty.Enabled = true;
                 comboResponsibleParty.Enabled = true;
                 lblAddress.Enabled = false;

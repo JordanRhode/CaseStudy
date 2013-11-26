@@ -1,4 +1,5 @@
 ﻿using CaseStudy.Business;
+using CaseStudy.DataAccess;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,6 +15,7 @@ namespace CaseStudy.Forms
     public partial class frmModifyCustomer : frmNewCustomer
     {
         private Customer _customerToModify = null;
+
         public frmModifyCustomer(Customer customer)
         {
             _customerToModify = customer;
@@ -35,17 +37,18 @@ namespace CaseStudy.Forms
                 if (chkResponsibleParty.Checked)
                 {
                     _customerToModify.PersonType = Person.PersonTypes.ResponsibleParty;
+                    _customerToModify.Address.Street = txtStreet.Text;
+                    _customerToModify.Address.City = txtCity.Text;
+                    _customerToModify.Address.State = txtState.Text;
+                    _customerToModify.Address.Zip = int.Parse(txtZip.Text);
                 }
                 else
                 {
                     _customerToModify.PersonType = Person.PersonTypes.Customer;
-                    //get address from responsible party
+                    _customerToModify.SetAddress(base.responsibleParty.Address);
+                    base.responsibleParty.AddDependant(_customerToModify);
                     //add customer as dependant of responsible party
                 }
-                _customerToModify.Address.Street = txtStreet.Text;
-                _customerToModify.Address.City = txtCity.Text;
-                _customerToModify.Address.State = txtState.Text;
-                _customerToModify.Address.Zip = int.Parse(txtZip.Text);
 
                 base.customer = _customerToModify;
 
@@ -69,6 +72,7 @@ namespace CaseStudy.Forms
                 else
                 {
                     base.chkResponsibleParty.CheckState = CheckState.Unchecked;
+                    base.comboResponsibleParty.SelectedIndex = base.comboResponsibleParty.Items.IndexOf(_customerToModify.ResponsibleParty);
                     base.UpdateEnabledControls(false);
                 }
                 base.txtStreet.Text = _customerToModify.Address.Street;

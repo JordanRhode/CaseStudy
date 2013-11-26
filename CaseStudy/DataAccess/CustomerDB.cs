@@ -11,16 +11,34 @@ namespace CaseStudy.DataAccess
 {
     public static class CustomerDB
     {
-        public static List<Customer> GetCustomers()
+        public static List<Customer> GetCustomers(bool onlyResponsibleParty)
+        {
+            StringBuilder _query = new StringBuilder("SELECT * FROM Customer C " +
+                                                     "JOIN Person P ON P.PersonID = C.PersonID " +
+                                                     "JOIN Address A ON A.AddressID = P.AddressID ");
+            if(onlyResponsibleParty)
+            {
+                _query.Append("WHERE P.PersonType = 'ResponsibleParty'");
+            }
+
+            return GetCustomersFromDB(_query.ToString());
+        }
+
+        public static List<Customer> GetDependants(long? responsiblePartyID)
+        {
+            string _query = string.Format("SELECT * FROM Customer C " +
+                            "JOIN Person P ON P.PersonID = C.PersonID " +
+                            "JOIN Address A ON A.AddressID = P.AddressID " +
+                            "WHERE C.ResponsiblePartyID = {0}", responsiblePartyID);
+            return GetCustomersFromDB(_query);
+        }
+
+        private static List<Customer> GetCustomersFromDB(string _query)
         {
             List<Customer> customers = new List<Customer>();
             try
             {
-                string _query = "SELECT * FROM Customer C " +
-                                "JOIN Person P ON P.PersonID = C.PersonID " +
-                                "JOIN Address A ON A.AddressID = P.AddressID";
-
-                using(SqlCeDataReader reader = CaseStudyDB.ExecuteReader(_query))
+                using(SqlCeDataReader reader = CaseStudyDB.ExecuteReader(_query.ToString()))
                 {
                     while (reader != null & reader.Read())
                     {
@@ -29,7 +47,8 @@ namespace CaseStudy.DataAccess
                         customer.PersonID = (long)reader["PersonID"];
                         if (!reader.IsDBNull(reader.GetOrdinal("ResponsiblePartyID")))
                         {
-                            customer.CustomerID = (long)reader["ResponsiblePartyID"];
+                            customer.ResponsiblePartyID = (long)reader["ResponsiblePartyID"];
+                            
                         }
 
                         Customer.Types type;
@@ -37,6 +56,7 @@ namespace CaseStudy.DataAccess
                         customer.Type = type;
                         customer.FirstName = reader["FirstName"].ToString();
                         customer.LastName = reader["LastName"].ToString();
+                        customer.DateOfBirth = DateTime.Parse(reader["DateOfBirth"].ToString());
                         Person.PersonTypes personType;
                         Enum.TryParse<Person.PersonTypes>(reader["PersonType"].ToString(), out personType);
                         customer.PersonType = personType;
@@ -68,24 +88,30 @@ namespace CaseStudy.DataAccess
                 customer.Address.AddressID = AddressDB.AddAddress(customer.Address);
             }
             customer.PersonID =  PersonDB.AddPerson(customer);
-            string _query = string.Format("INSERT INTO Customer " +
-                "VALUES({},{},{})", customer.PersonID, customer.ResponsiblePartyID, customer.PersonType);
-            return CaseStudyDB.ExecuteScalar(_query);
+            string _query = string.Format("INSERT INTO Customer (PersonID, ResponsiblePartyID, Type) " +
+                "VALUES({0}, {1}, '{2}')", customer.PersonID, customer.ResponsiblePartyID == null? 0 : customer.ResponsiblePartyID, 
+                customer.PersonType);
+            return CaseStudyDB.ExecuteNonQuery(_query);
         }
 
         public static void ModifyCustomer(Customer customer)
         {
+            if(customer.PersonType == Person.PersonTypes.ResponsibleParty)
+            {
+                AddressDB.UpdateAddress(customer.Address);
+            }
+            PersonDB.UpdatePerson(customer);
 
+            string _query = string.Format("UPDATE Customer " +
+                "SET ResponsiblePartyID={0}, Type='{1}' WHERE CustomerID = {2}",
+                customer.ResponsiblePartyID == null ? 0 : customer.ResponsiblePartyID,
+                customer.PersonType, customer.CustomerID);
+
+            CaseStudyDB.ExecuteNonQuery(_query);
         }
 
         public static void DeleteCustomer(Customer customer)
         {
-            if(customer.Dependants.Count > 0)
-            {
-                MessageBox.Show("Cannot delete customer with dependants");
-                return;
-            }
-
             if(customer.PersonType == Person.PersonTypes.ResponsibleParty)
             {
                 AddressDB.DeleteAddress(customer.Address);
@@ -95,9 +121,8 @@ namespace CaseStudy.DataAccess
             
 
             string _query = string.Format("DELETE FROM Customer WHERE CustomerID = {0}", customer.CustomerID);
-            CaseStudyDB.ExecuteScalar(_query);
+            CaseStudyDB.ExecuteNonQuery(_query);
 
         }
-
     }
 }

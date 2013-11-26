@@ -1,6 +1,7 @@
 ﻿using CaseStudy.Business;
 using System;
 using System.Drawing;
+using System.Windows.Forms;
 namespace CaseStudy
 {
     partial class frmNewCustomer
@@ -228,6 +229,7 @@ namespace CaseStudy
             this.comboType.Name = "comboType";
             this.comboType.Size = new System.Drawing.Size(199, 32);
             this.comboType.TabIndex = 3;
+            this.comboType.DropDownStyle = ComboBoxStyle.DropDownList;
             // 
             // lblType
             // 
@@ -283,6 +285,7 @@ namespace CaseStudy
             this.comboResponsibleParty.Size = new System.Drawing.Size(199, 32);
             this.comboResponsibleParty.TabIndex = 5;
             this.comboResponsibleParty.SelectedIndexChanged += new System.EventHandler(this.comboResponsibleParty_IndexChanged);
+            this.comboResponsibleParty.DropDownStyle = ComboBoxStyle.DropDownList;
             // 
             // frmNewCustomer
             // 

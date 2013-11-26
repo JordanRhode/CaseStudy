@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CaseStudy.DataAccess;
+using System;
 using System.Collections.Generic;
 
 namespace CaseStudy.Business
@@ -13,12 +14,12 @@ namespace CaseStudy.Business
             set { _customerID = value; }
         }
 
-        private long? _personID = null;
-        public long? PersonID
-        {
-            get { return _personID; }
-            set { _personID = value; }
-        }
+        //private long? _personID = null;
+        //public long? PersonID
+        //{
+        //    get { return _personID; }
+        //    set { _personID = value; }
+        //}
 
         private long? _responsiblePartyID = null;
         public long? ResponsiblePartyID { get; set; }
@@ -67,7 +68,6 @@ namespace CaseStudy.Business
         {
             _customerID = customerID;
             _type = type;
-            _personID = personID;
         }
 
         public void AddDependant(Customer dependant)
@@ -80,7 +80,13 @@ namespace CaseStudy.Business
                 }
                 _dependants.Add(dependant);
                 dependant.ResponsibleParty = this;
+                CustomerDB.ModifyCustomer(this);
             }
+        }
+
+        public void LoadDependants()
+        {
+            _dependants = CustomerDB.GetDependants(CustomerID);
         }
 
         public override bool Equals(object obj)

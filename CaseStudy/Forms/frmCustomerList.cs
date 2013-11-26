@@ -1,6 +1,7 @@
 ﻿using CaseStudy.Business;
 using CaseStudy.DataAccess;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
@@ -17,10 +18,7 @@ namespace CaseStudy.Forms
 
         private void CustomerList_Load(object sender, EventArgs e)
         {
-            //customers = TextCustomerDB.GetCustomers();
-            //customers = XMLCustomerDB.GetCustomers();
-            //customers = BinaryCustomerDB.GetCustomers();
-            customers = CustomerDB.GetCustomers();
+            customers = CustomerDB.GetCustomers(false);
             FillCustomerListBox();
         }
 
@@ -29,6 +27,14 @@ namespace CaseStudy.Forms
             lstCustomers.Items.Clear();
             foreach (Customer c in customers)
             {
+                if (c.PersonType == Person.PersonTypes.ResponsibleParty)
+                {
+                    c.LoadDependants();
+                }
+                else
+                {
+                    c.ResponsibleParty = customers.FirstOrDefault(cu => cu.CustomerID == c.ResponsiblePartyID);
+                }
                 lstCustomers.Items.Add(c.ToString());
             }
         }
@@ -39,10 +45,8 @@ namespace CaseStudy.Forms
             Customer customer = newCustomerForm.GetNewCustomer();
             if (customer != null)
             {
+                customer.CustomerID = CustomerDB.AddCustomer(customer);
                 customers.Add(customer);
-                //TextCustomerDB.SaveCustomers(customers);
-                XMLCustomerDB.SaveCustomers(customers);
-                //BinaryCustomerDB.SaveCustomers(customers);
                 FillCustomerListBox();
             }
         }
@@ -57,10 +61,13 @@ namespace CaseStudy.Forms
                 DialogResult button = MessageBox.Show(message, "Confirm Delete", MessageBoxButtons.YesNo);
                 if (button == DialogResult.Yes)
                 {
+                    if (customer.Dependants != null && customer.Dependants.Count > 0)
+                    {
+                        MessageBox.Show("Cannot delete customer with dependants");
+                        return;
+                    }
+                    CustomerDB.DeleteCustomer(customer);
                     customers.Remove(customer);
-                    //TextCustomerDB.SaveCustomers(customers);
-                    XMLCustomerDB.SaveCustomers(customers);
-                    //BinaryCustomerDB.SaveCustomers(customers);
                     FillCustomerListBox();
                 }
             }
@@ -80,6 +87,7 @@ namespace CaseStudy.Forms
             Customer customer = modifyCustomerForm.GetNewCustomer();
             if (customer != null)
             {
+                CustomerDB.ModifyCustomer(customer);
                 customers[i] = customer;
                 FillCustomerListBox();
             }
