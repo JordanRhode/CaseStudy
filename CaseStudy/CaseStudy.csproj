@@ -67,6 +67,7 @@
     <Compile Include="Base\UserInfo.cs" />
     <Compile Include="Business\Address.cs" />
     <Compile Include="Business\Customer.cs" />
+    <Compile Include="Business\TransactionProducts.cs" />
     <Compile Include="CaseStudyDBDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -77,6 +78,7 @@
     <Compile Include="DataAccess\CustomerDB.cs" />
     <Compile Include="DataAccess\PersonDB.cs" />
     <Compile Include="DataAccess\ProductDB.cs" />
+    <Compile Include="DataAccess\TransactionDB.cs" />
     <Compile Include="DataAccess\XMLCustomerDB.cs" />
     <Compile Include="Business\Product.cs" />
     <Compile Include="Business\Person.cs" />

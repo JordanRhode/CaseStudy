@@ -7,25 +7,13 @@ namespace CaseStudy.Business
 {
     public class Transaction
     {
+        private List<TransactionProducts> transactionProducts;
         #region Properties
         private long? _transactionID = null;
         public long? TransactionID
         {
             get { return _transactionID; }
             set { _transactionID = value; }
-        }
-
-        private Dictionary<Product, int> _products = null;
-        public Dictionary<Product, int> Products
-        {
-            get { return _products; }
-        }
-
-        private long? _totalPrice = null;
-        public long? TotalPrice
-        {
-            get { return _totalPrice; }
-            set { _totalPrice = value; }
         }
 
         private long? _customerID = null;
@@ -35,21 +23,34 @@ namespace CaseStudy.Business
             set { _customerID = value; }
         }
 
-        private DateTime? _date = null;
-        public DateTime? Date
+        private long? _responsiblePartyID = null;
+        public long? ResponsiblePartyID
         {
-            get { return _date; }
-            set { _date = value; }
+            get { return _responsiblePartyID; }
+            set { _responsiblePartyID = value; }
         }
 
-        private bool _paid = false;
-        public bool Paid { get; set; }
+        private DateTime? _transactionDate = null;
+        public DateTime? TransactionDate
+        {
+            get { return _transactionDate; }
+            set { _transactionDate = value; }
+        }
+
+        private DateTime? _paymentRecieved = null;
+        public DateTime? PaymentRecieved
+        {
+            get { return _paymentRecieved; }
+            set { _paymentRecieved = value; }
+        }
+
+        private long? _totalPrice = null;
+        public long? TotalPrice
+        {
+            get { return _totalPrice; }
+            set { _totalPrice = value; }
+        }
         #endregion
-
-        public void AddProduct(Product product, int quantity)
-        {
-            _products.Add(product, quantity);
-        }
 
         public long CalculateTotalPrice()
         {
