@@ -83,13 +83,16 @@ namespace CaseStudy.Forms
         private void btnModifyCustomer_Click(object sender, EventArgs e)
         {
             int i = lstCustomers.SelectedIndex;
-            frmModifyCustomer modifyCustomerForm = new frmModifyCustomer(customers[i]);
-            Customer customer = modifyCustomerForm.GetNewCustomer();
-            if (customer != null)
+            if (i != -1)
             {
-                CustomerDB.ModifyCustomer(customer);
-                customers[i] = customer;
-                FillCustomerListBox();
+                frmModifyCustomer modifyCustomerForm = new frmModifyCustomer(customers[i]);
+                Customer customer = modifyCustomerForm.GetNewCustomer();
+                if (customer != null)
+                {
+                    CustomerDB.ModifyCustomer(customer);
+                    customers[i] = customer;
+                    FillCustomerListBox();
+                }
             }
         }
     }

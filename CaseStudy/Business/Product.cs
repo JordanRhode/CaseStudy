@@ -12,6 +12,7 @@ namespace CaseStudy.Business
         public long? ProductID
         {
             get { return _productID; }
+            set { _productID = value; }
         }
 
         private string _name = null;

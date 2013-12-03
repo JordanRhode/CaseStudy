@@ -103,9 +103,9 @@ namespace CaseStudy.DataAccess
                         }
                     }
                     Address address = new Address(addressID, street, city, state, zip);
-                    Customer customer = new Customer(customerID, customerType, personID, firstName, lastName, dob, personType);
-                    customer.SetAddress(address);
-                    customers.Add(customer);
+                    //Customer customer = new Customer(customerID, customerType, personID, firstName, lastName, dob, personType);
+                    //customer.SetAddress(address);
+                    //customers.Add(customer);
                 }
             }
             reader.Close();

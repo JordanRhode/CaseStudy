@@ -34,19 +34,12 @@
       </Enum>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>QAEAAGAAgAAAAIAEoIEAAAAAAAAQAIACAAAAAEAQAAg=</HashCode>
+      <HashCode>QAUAAGAAgCAAAIAEoIEAAAAAAAAQAIACAAAAAEAQAAk=</HashCode>
       <FileName>Business\Person.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Address" />
     </ShowAsAssociation>
-  </Class>
-  <Class Name="CaseStudy.Business.Admin">
-    <Position X="5.25" Y="5.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAABAAAAAAAAAIAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Business\Admin.cs</FileName>
-    </TypeIdentifier>
   </Class>
   <Class Name="CaseStudy.Business.Customer">
     <Position X="7.5" Y="5.5" Width="1.5" />
@@ -58,18 +51,17 @@
       </Enum>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>QAAAAAARAAAAAEQEgoEAAAAAEAAAAIAAIQAgAAAAAAE=</HashCode>
+      <HashCode>AAAAAAARAAAABEQEggEAAAAAEAAAAIAAIQAgAAAAAAE=</HashCode>
       <FileName>Business\Customer.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="ResponsibleParty" />
-      <Property Name="Dependants" />
     </ShowAsAssociation>
   </Class>
   <Class Name="CaseStudy.Business.Transaction">
     <Position X="3.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AIAAAAAQAAAAAAgABAAAQAEgEAAAQAABAIAAAAAAAAQ=</HashCode>
+      <HashCode>AIEAAAAQAAAgAAgABAAAQAEgEAAAQAABAIAAAAAAAAQ=</HashCode>
       <FileName>Business\Transaction.cs</FileName>
     </TypeIdentifier>
   </Class>

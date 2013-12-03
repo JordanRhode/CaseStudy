@@ -32,7 +32,18 @@ namespace CaseStudy.Business
         }
 
         private string _email = null;
-        public string Email { get; set; }
+        public string Email
+        {
+            get { return _email; }
+            set { _email = value; }
+        }
+
+        private string _password = null;
+        public string Password
+        {
+            get { return _password; }
+            set { _password = value; }
+        }
 
         private Address _address = null;
         public Address Address
@@ -67,11 +78,14 @@ namespace CaseStudy.Business
 
         }
 
-        public Person(long? personID, string firstName, string lastName, DateTime? dateOfBirth, PersonTypes type)
+        public Person(long? personID, string firstName, string lastName, string email, string password,
+            DateTime? dateOfBirth, PersonTypes type)
         {
             _personID = personID;
             _firstName = firstName;
             _lastName = lastName;
+            _email = email;
+            _password = password;
             _dateOfBirth = dateOfBirth;
             _personType = type;
         }

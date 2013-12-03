@@ -18,19 +18,26 @@ namespace CaseStudy.Forms
 
         public frmModifyCustomer(Customer customer)
         {
-            _customerToModify = customer;
+            if(customer != null)
+            {
+                _customerToModify = customer;
+            }
+            else
+            {
+                this.Close();
+            }
             InitializeComponent();
-            base.btnSubmit.Click -= new System.EventHandler(base.btnSubmit_Click);
-            base.btnSubmit.Click += new System.EventHandler(this.btnSubmit_Click);
             FillFormData();
         }
 
-        private void btnSubmit_Click(object sender, EventArgs e)
+        internal override void btnSubmit_Click(object sender, EventArgs e)
         {
             if (base.IsValidData())
             {
                 _customerToModify.FirstName = txtFirstName.Text;
                 _customerToModify.LastName = txtLastName.Text;
+                _customerToModify.Email = txtEmail.Text;
+                _customerToModify.Password = txtPassword.Text;
                 _customerToModify.DateOfBirth = dateDOB.Value;
                 Customer.Types type = (Customer.Types)Enum.Parse(typeof(Customer.Types), comboType.SelectedItem.ToString());
                 _customerToModify.Type = type;
@@ -41,6 +48,11 @@ namespace CaseStudy.Forms
                     _customerToModify.Address.City = txtCity.Text;
                     _customerToModify.Address.State = txtState.Text;
                     _customerToModify.Address.Zip = int.Parse(txtZip.Text);
+                    if(base.responsibleParty != null)
+                    {
+                        base.responsibleParty.RemoveDependant(_customerToModify);
+                        _customerToModify.ResponsibleParty = null;
+                    }
                 }
                 else
                 {
@@ -62,6 +74,9 @@ namespace CaseStudy.Forms
             {
                 base.txtFirstName.Text = _customerToModify.FirstName;
                 base.txtLastName.Text = _customerToModify.LastName;
+                base.txtEmail.Text = _customerToModify.Email;
+                base.txtPassword.Text = _customerToModify.Password;
+                base.txtPasswordConfirm.Text = _customerToModify.Password;
                 base.dateDOB.Value = (DateTime)_customerToModify.DateOfBirth;
                 base.comboType.SelectedItem = _customerToModify.Type;
                 if (_customerToModify.PersonType == Person.PersonTypes.ResponsibleParty)

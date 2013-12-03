@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -42,20 +43,50 @@ namespace CaseStudy.Base
             return true;
         }
 
+        public static bool IsEmail(TextBox textBox)
+        {
+            string val = textBox.Text;
+            if (val != "")
+            {
+                string pattern = @"^[a-z][a-z|0-9|]*([_][a-z|0-9]+)*([.][a-z|0-9]+([_][a-z|0-9]+)*)?@[a-z][a-z|0-9|]*\.([a-z][a-z|0-9]*(\.[a-z][a-z|0-9]*)?)$";
+                Match match = Regex.Match(val.Trim(), pattern, RegexOptions.IgnoreCase);
+
+                if (match.Success)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
 
         public static bool IsInt(TextBox textBox)
         {
-            try
+            if (IsPresent(textBox))
             {
-                Convert.ToInt32(textBox.Text);
+                try
+                {
+                    Convert.ToInt32(textBox.Text);
+                    return true;
+                }
+                catch (FormatException)
+                {
+                    MessageBox.Show(string.Format("{0} must be an integer number.", textBox.Tag), Title);
+                    textBox.Focus();
+                    return false;
+                }
+            }
+            return false;
+        }
+
+        public static bool IsEqualTo(TextBox txt1, TextBox txt2)
+        {
+            if(txt1.Text == txt2.Text)
+            {
                 return true;
             }
-            catch (FormatException)
-            {
-                MessageBox.Show(string.Format("{0} must be an integer number.", textBox.Tag), Title);
-                textBox.Focus();
-                return false;
-            }
+            MessageBox.Show("Passwords must be equal");
+            return false;
         }
     }
 }

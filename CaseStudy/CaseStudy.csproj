@@ -66,7 +66,6 @@
     <Compile Include="Base\Controller.cs" />
     <Compile Include="Base\UserInfo.cs" />
     <Compile Include="Business\Address.cs" />
-    <Compile Include="Business\Admin.cs" />
     <Compile Include="Business\Customer.cs" />
     <Compile Include="CaseStudyDBDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -77,6 +76,7 @@
     <Compile Include="DataAccess\CaseStudyDB.cs" />
     <Compile Include="DataAccess\CustomerDB.cs" />
     <Compile Include="DataAccess\PersonDB.cs" />
+    <Compile Include="DataAccess\ProductDB.cs" />
     <Compile Include="DataAccess\XMLCustomerDB.cs" />
     <Compile Include="Business\Product.cs" />
     <Compile Include="Business\Person.cs" />
@@ -197,7 +197,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="CaseStudyDB.sdf" />
     <Content Include="DataAccess\CustomerData.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

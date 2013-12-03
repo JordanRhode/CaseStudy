@@ -29,7 +29,7 @@ namespace CaseStudy
             return customer;
         }
 
-        internal void btnSubmit_Click(object sender, EventArgs e)
+        internal virtual void btnSubmit_Click(object sender, EventArgs e)
         {
             if (IsValidData())
             {
@@ -38,9 +38,10 @@ namespace CaseStudy
                 customer = new Customer();
                 customer.FirstName = txtFirstName.Text;
                 customer.LastName = txtLastName.Text;
+                customer.Email = txtEmail.Text;
+                customer.Password = txtPassword.Text;
                 customer.DateOfBirth = dateDOB.Value;
                 customer.Type = (Customer.Types)Enum.Parse(typeof(Customer.Types), comboType.SelectedItem.ToString());
-                customer.Email = ""; //TODO: Email
 
                 if(chkResponsibleParty.Checked)
                 {
@@ -65,9 +66,13 @@ namespace CaseStudy
         {
             return Validator.IsPresent(txtFirstName) &&
                    Validator.IsPresent(txtLastName) &&
+                   Validator.IsEmail(txtEmail) &&
                    Validator.IsPresent(txtStreet) &&
                    Validator.IsPresent(txtCity) &&
                    Validator.IsPresent(txtState) &&
+                   Validator.IsPresent(txtPassword) &&
+                   Validator.IsPresent(txtPasswordConfirm) &&
+                   Validator.IsEqualTo(txtPassword, txtPasswordConfirm) &&
                    Validator.IsInt(txtZip);
         }
 
@@ -83,8 +88,14 @@ namespace CaseStudy
 
         private void comboResponsibleParty_IndexChanged(object sender, EventArgs e)
         {
-            responsibleParty = (Customer)comboResponsibleParty.SelectedItem;
-            FillAddressWithResponsibleParty();
+            if (!chkResponsibleParty.Checked)
+            {
+                responsibleParty = (Customer)comboResponsibleParty.SelectedItem;
+                if (responsibleParty != null)
+                {
+                    FillAddressWithResponsibleParty();
+                }
+            }
         }
 
         private void FillAddressWithResponsibleParty()
@@ -114,11 +125,11 @@ namespace CaseStudy
             {
                 lblResponsibleParty.Enabled = false;
                 comboResponsibleParty.Enabled = false;
-                lblAddress.Enabled = true;
-                lblStreet.Enabled = true;
-                lblCity.Enabled = true;
-                lblState.Enabled = true;
-                lblZip.Enabled = true;
+                grpAddress.Enabled = true;
+                //lblStreet.Enabled = true;
+                //lblCity.Enabled = true;
+                //lblState.Enabled = true;
+                //lblZip.Enabled = true;
                 txtCity.Enabled = true;
                 txtCity.Text = "";
                 txtStreet.Enabled = true;
@@ -132,11 +143,11 @@ namespace CaseStudy
             {
                 lblResponsibleParty.Enabled = true;
                 comboResponsibleParty.Enabled = true;
-                lblAddress.Enabled = false;
-                lblStreet.Enabled = false;
-                lblCity.Enabled = false;
-                lblState.Enabled = false;
-                lblZip.Enabled = false;
+                grpAddress.Enabled = false;
+                //lblStreet.Enabled = false;
+                //lblCity.Enabled = false;
+                //lblState.Enabled = false;
+                //lblZip.Enabled = false;
                 txtCity.Enabled = false;
                 txtStreet.Enabled = false;
                 txtState.Enabled = false;

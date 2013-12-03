@@ -1,5 +1,6 @@
 ﻿using CaseStudy.Base;
 using CaseStudy.Business;
+using CaseStudy.DataAccess;
 using CaseStudy.Forms;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,8 @@ namespace CaseStudy
         public frmLogin()
         {
             InitializeComponent();
+            txtEmail.Text = "rhode.jordan@gmail.com";
+            txtPassword.Text = "password";
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
@@ -27,8 +30,6 @@ namespace CaseStudy
             if (!ValidateUser())
             {
                 txtEmail.Clear();
-                txtPassword.Clear();
-                MessageBox.Show("Email and/or Password is incorrect", "Invalid Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
@@ -42,8 +43,20 @@ namespace CaseStudy
         {
             //Validate Email
             //Validate Password
-            Person person = new Person(1234, "Jordan", "Rhode", DateTime.Now, Person.PersonTypes.Admin);
-            UserInfo.SetUser(person);
+            if (Validator.IsEmail(txtEmail) && Validator.IsPresent(txtPassword))
+            {
+                if(!PersonDB.Login(txtEmail.Text, txtPassword.Text))
+                {
+                    MessageBox.Show("Invalid Username and/or Password");
+                    return false;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Email or Password not valid.");
+                return false;
+            }
+            //Person person = new Person(1234, "Jordan", "Rhode", "", "", DateTime.Now, Person.PersonTypes.Admin);
             return true;
         }
 

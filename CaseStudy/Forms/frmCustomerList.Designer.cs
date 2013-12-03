@@ -115,13 +115,13 @@ namespace CaseStudy.Forms
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
-            // CustomerList
+            // frmCustomerList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(784, 411);
+            this.ClientSize = new System.Drawing.Size(784, 461);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnEmailCustomer);
             this.Controls.Add(this.btnDeleteCustomer);
@@ -131,7 +131,7 @@ namespace CaseStudy.Forms
             this.Controls.Add(this.lstCustomers);
             this.Font = new System.Drawing.Font("Trebuchet MS", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.Name = "CustomerList";
+            this.Name = "frmCustomerList";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Customer List";
             this.Load += new System.EventHandler(this.CustomerList_Load);

@@ -42,5 +42,11 @@ namespace CaseStudy.Forms
         {
             loggingOut = true;
         }
+
+        private void btnManageProducts_Click(object sender, EventArgs e)
+        {
+            frmProductList productList = new frmProductList();
+            productList.ShowDialog();
+        }
     }
 }

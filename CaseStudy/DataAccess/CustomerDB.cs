@@ -61,6 +61,7 @@ namespace CaseStudy.DataAccess
                         Enum.TryParse<Person.PersonTypes>(reader["PersonType"].ToString(), out personType);
                         customer.PersonType = personType;
                         customer.Email = reader["Email"].ToString();
+                        customer.Password = reader["Password"].ToString();
 
                         Address address = new Address();
                         address.AddressID = (long)reader["AddressID"];
@@ -124,5 +125,6 @@ namespace CaseStudy.DataAccess
             CaseStudyDB.ExecuteNonQuery(_query);
 
         }
+
     }
 }

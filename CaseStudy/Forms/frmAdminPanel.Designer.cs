@@ -67,6 +67,7 @@ namespace CaseStudy.Forms
             this.btnManageProducts.TabIndex = 2;
             this.btnManageProducts.Text = "Manage Products";
             this.btnManageProducts.UseVisualStyleBackColor = true;
+            this.btnManageProducts.Click += new System.EventHandler(this.btnManageProducts_Click);
             // 
             // btnOutstandingInvoices
             // 
@@ -88,13 +89,13 @@ namespace CaseStudy.Forms
             this.btnLogout.UseVisualStyleBackColor = true;
             this.btnLogout.Click += new System.EventHandler(this.btnLogout_Click);
             // 
-            // AdminPanel
+            // frmAdminPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.CancelButton = this.btnLogout;
-            this.ClientSize = new System.Drawing.Size(784, 411);
+            this.ClientSize = new System.Drawing.Size(784, 461);
             this.Controls.Add(this.btnLogout);
             this.Controls.Add(this.btnOutstandingInvoices);
             this.Controls.Add(this.btnManageProducts);
@@ -102,7 +103,7 @@ namespace CaseStudy.Forms
             this.Controls.Add(this.lblWelcome);
             this.Font = new System.Drawing.Font("Trebuchet MS", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
-            this.Name = "AdminPanel";
+            this.Name = "frmAdminPanel";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Admin Panel";
             this.ResumeLayout(false);

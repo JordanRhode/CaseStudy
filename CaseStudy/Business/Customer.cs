@@ -14,13 +14,6 @@ namespace CaseStudy.Business
             set { _customerID = value; }
         }
 
-        //private long? _personID = null;
-        //public long? PersonID
-        //{
-        //    get { return _personID; }
-        //    set { _personID = value; }
-        //}
-
         private long? _responsiblePartyID = null;
         public long? ResponsiblePartyID { get; set; }
 
@@ -31,7 +24,14 @@ namespace CaseStudy.Business
             set 
             { 
                 _responsibleParty = value;
-                _responsiblePartyID = _responsibleParty._responsiblePartyID;
+                if (_responsibleParty != null)
+                {
+                    _responsiblePartyID = _responsibleParty._responsiblePartyID;
+                }
+                else
+                {
+                    _responsiblePartyID = null;
+                }
             }
         }
 
@@ -63,8 +63,9 @@ namespace CaseStudy.Business
         }
 
         public Customer(long? customerID, Types type, long? personID, string firstName, 
-                        string lastName, DateTime? dateOfBirth, PersonTypes customerType)
-                        : base(personID, firstName, lastName, dateOfBirth, customerType)
+                        string lastName, string email, string password, DateTime? dateOfBirth, 
+                        PersonTypes customerType)
+                        : base(personID, firstName, lastName, email, password, dateOfBirth, customerType)
         {
             _customerID = customerID;
             _type = type;
@@ -80,6 +81,15 @@ namespace CaseStudy.Business
                 }
                 _dependants.Add(dependant);
                 dependant.ResponsibleParty = this;
+                CustomerDB.ModifyCustomer(this);
+            }
+        }
+
+        public void RemoveDependant(Customer dependant)
+        {
+            if(_dependants != null)
+            {
+                _dependants.Remove(dependant);
                 CustomerDB.ModifyCustomer(this);
             }
         }
