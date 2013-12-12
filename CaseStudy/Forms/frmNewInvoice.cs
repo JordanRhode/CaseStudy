@@ -52,7 +52,7 @@ namespace CaseStudy.Forms
             {
                 if (c.PersonType == Person.PersonTypes.ResponsibleParty)
                 {
-                    c.LoadDependants();
+                    c.LoadDependents();
                 }
                 else
                 {

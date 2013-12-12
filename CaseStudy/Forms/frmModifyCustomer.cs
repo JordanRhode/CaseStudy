@@ -50,7 +50,7 @@ namespace CaseStudy.Forms
                     _customerToModify.Address.Zip = int.Parse(txtZip.Text);
                     if(base.responsibleParty != null)
                     {
-                        base.responsibleParty.RemoveDependant(_customerToModify);
+                        base.responsibleParty.RemoveDependent(_customerToModify);
                         _customerToModify.ResponsibleParty = null;
                     }
                 }
@@ -58,7 +58,7 @@ namespace CaseStudy.Forms
                 {
                     _customerToModify.PersonType = Person.PersonTypes.Customer;
                     _customerToModify.SetAddress(base.responsibleParty.Address);
-                    base.responsibleParty.AddDependant(_customerToModify);
+                    base.responsibleParty.AddDependent(_customerToModify);
                 }
 
                 base.customer = _customerToModify;
@@ -69,11 +69,11 @@ namespace CaseStudy.Forms
 
         internal override void chkResponsibleParty_CheckedChanged(object sender, EventArgs e)
         {
-            if (!chkResponsibleParty.Checked && _customerToModify.Dependants != null)
+            if (!chkResponsibleParty.Checked && _customerToModify.Dependents != null)
             {
-                if (_customerToModify.Dependants.Count > 0)
+                if (_customerToModify.Dependents.Count > 0)
                 {
-                    MessageBox.Show(string.Format("{0} has dependants and must stay a responsible party.",
+                    MessageBox.Show(string.Format("{0} has dependents and must stay a responsible party.",
                         _customerToModify.FirstName));
                     chkResponsibleParty.Checked = true;
                 }

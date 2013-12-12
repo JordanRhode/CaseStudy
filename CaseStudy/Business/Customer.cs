@@ -35,10 +35,10 @@ namespace CaseStudy.Business
             }
         }
 
-        private List<Customer> _dependants = null;
-        public List<Customer> Dependants
+        private List<Customer> _dependents = null;
+        public List<Customer> Dependents
         {
-            get { return _dependants; }
+            get { return _dependents; }
         }
 
         public enum Types
@@ -71,32 +71,32 @@ namespace CaseStudy.Business
             _type = type;
         }
 
-        public void AddDependant(Customer dependant)
+        public void AddDependent(Customer dependent)
         {
-            if (this.PersonType == PersonTypes.ResponsibleParty && dependant.PersonType == PersonTypes.Customer)
+            if (this.PersonType == PersonTypes.ResponsibleParty && dependent.PersonType == PersonTypes.Customer)
             {
-                if (_dependants == null)
+                if (_dependents == null)
                 {
-                    _dependants = new List<Customer>();
+                    _dependents = new List<Customer>();
                 }
-                _dependants.Add(dependant);
-                dependant.ResponsibleParty = this;
+                _dependents.Add(dependent);
+                dependent.ResponsibleParty = this;
                 CustomerDB.ModifyCustomer(this);
             }
         }
 
-        public void RemoveDependant(Customer dependant)
+        public void RemoveDependent(Customer dependent)
         {
-            if(_dependants != null)
+            if(_dependents != null)
             {
-                _dependants.Remove(dependant);
+                _dependents.Remove(dependent);
                 CustomerDB.ModifyCustomer(this);
             }
         }
 
-        public void LoadDependants()
+        public void LoadDependents()
         {
-            _dependants = CustomerDB.GetDependants(CustomerID);
+            _dependents = CustomerDB.GetDependents(CustomerID);
         }
 
         public override bool Equals(object obj)

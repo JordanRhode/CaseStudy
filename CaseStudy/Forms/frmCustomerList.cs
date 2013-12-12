@@ -29,7 +29,7 @@ namespace CaseStudy.Forms
             {
                 if (c.PersonType == Person.PersonTypes.ResponsibleParty)
                 {
-                    c.LoadDependants();
+                    c.LoadDependents();
                 }
                 else
                 {
@@ -62,9 +62,9 @@ namespace CaseStudy.Forms
                 DialogResult button = MessageBox.Show(message, "Confirm Delete", MessageBoxButtons.YesNo);
                 if (button == DialogResult.Yes)
                 {
-                    if (customer.Dependants != null && customer.Dependants.Count > 0)
+                    if (customer.Dependents != null && customer.Dependents.Count > 0)
                     {
-                        MessageBox.Show("Cannot delete customer with dependants");
+                        MessageBox.Show("Cannot delete customer with dependents");
                         return;
                     }
                     CustomerDB.DeleteCustomer(customer);

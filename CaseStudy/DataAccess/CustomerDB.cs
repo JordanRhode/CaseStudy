@@ -33,7 +33,7 @@ namespace CaseStudy.DataAccess
             return GetCustomersFromDB(_query).FirstOrDefault();
         }
 
-        public static List<Customer> GetDependants(long? responsiblePartyID)
+        public static List<Customer> GetDependents(long? responsiblePartyID)
         {
             string _query = string.Format("SELECT * FROM Customer C " +
                             "JOIN Person P ON P.PersonID = C.PersonID " +
