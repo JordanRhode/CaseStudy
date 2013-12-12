@@ -1,5 +1,5 @@
 ﻿using System.Drawing;
-namespace CaseStudy
+namespace CaseStudy.Forms
 {
     partial class frmLogin
     {
@@ -36,7 +36,7 @@ namespace CaseStudy
             this.lblPassword = new System.Windows.Forms.Label();
             this.btnLogin = new System.Windows.Forms.Button();
             this.lblTitle = new System.Windows.Forms.Label();
-            this.btnCancel = new System.Windows.Forms.Button();
+            this.btnExit = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txtEmail
@@ -47,6 +47,7 @@ namespace CaseStudy
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(297, 29);
             this.txtEmail.TabIndex = 0;
+            this.txtEmail.Tag = "Email";
             // 
             // txtPassword
             // 
@@ -56,6 +57,7 @@ namespace CaseStudy
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.Size = new System.Drawing.Size(297, 29);
             this.txtPassword.TabIndex = 1;
+            this.txtPassword.Tag = "Password";
             this.txtPassword.UseSystemPasswordChar = true;
             // 
             // lblEmail
@@ -106,27 +108,27 @@ namespace CaseStudy
             this.lblTitle.TabIndex = 6;
             this.lblTitle.Text = "JS Music Studio";
             // 
-            // btnCancel
+            // btnExit
             // 
-            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(483, 322);
-            this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(132, 63);
-            this.btnCancel.TabIndex = 3;
-            this.btnCancel.Text = "Cancel";
-            this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            this.btnExit.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnExit.Location = new System.Drawing.Point(483, 322);
+            this.btnExit.Margin = new System.Windows.Forms.Padding(4);
+            this.btnExit.Name = "btnExit";
+            this.btnExit.Size = new System.Drawing.Size(132, 63);
+            this.btnExit.TabIndex = 3;
+            this.btnExit.Text = "Exit";
+            this.btnExit.UseVisualStyleBackColor = true;
+            this.btnExit.Click += new System.EventHandler(this.btnCancel_Click);
             // 
-            // Login
+            // frmLogin
             // 
             this.AcceptButton = this.btnLogin;
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
-            this.CancelButton = this.btnCancel;
+            this.CancelButton = this.btnExit;
             this.ClientSize = new System.Drawing.Size(784, 411);
-            this.Controls.Add(this.btnCancel);
+            this.Controls.Add(this.btnExit);
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.btnLogin);
             this.Controls.Add(this.lblPassword);
@@ -135,7 +137,7 @@ namespace CaseStudy
             this.Controls.Add(this.txtEmail);
             this.Font = new System.Drawing.Font("Verdana", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(5);
-            this.Name = "Login";
+            this.Name = "frmLogin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Login";
             this.ResumeLayout(false);
@@ -151,6 +153,6 @@ namespace CaseStudy
         private System.Windows.Forms.Label lblPassword;
         private System.Windows.Forms.Button btnLogin;
         private System.Windows.Forms.Label lblTitle;
-        private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Button btnExit;
     }
 }

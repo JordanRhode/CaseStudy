@@ -12,7 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace CaseStudy
+namespace CaseStudy.Forms
 {
     public partial class frmLogin : Form
     {
@@ -21,7 +21,9 @@ namespace CaseStudy
         {
             InitializeComponent();
             txtEmail.Text = "rhode.jordan@gmail.com";
+            //txtEmail.Text = "jozy.altidore@gmail.com";
             txtPassword.Text = "password";
+            
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
@@ -29,7 +31,8 @@ namespace CaseStudy
             //check if username and password is correct, return dialog.ok
             if (!ValidateUser())
             {
-                txtEmail.Clear();
+                txtEmail.Focus();
+                txtEmail.SelectAll();
             }
             else
             {
@@ -56,7 +59,6 @@ namespace CaseStudy
                 MessageBox.Show("Email or Password not valid.");
                 return false;
             }
-            //Person person = new Person(1234, "Jordan", "Rhode", "", "", DateTime.Now, Person.PersonTypes.Admin);
             return true;
         }
 

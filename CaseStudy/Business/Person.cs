@@ -28,7 +28,7 @@ namespace CaseStudy.Business
 
         public string FullName
         {
-            get { return string.Format("{0} {1}", FirstName, LastName); }
+            get { return string.Format("{0}, {1}", LastName, FirstName); }
         }
 
         private string _email = null;
@@ -112,7 +112,7 @@ namespace CaseStudy.Business
 
         public override string ToString()
         {
-            return string.Format("{0}, Type: {1}", this.FullName, this._personType);
+            return string.Format("{0}, {1}", this.FullName, this._personType);
         }
 
         public override int GetHashCode()

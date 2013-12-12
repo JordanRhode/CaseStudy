@@ -38,6 +38,27 @@ namespace CaseStudy.DataAccess
             CaseStudyDB.ExecuteNonQuery(_query);
         }
 
+        public static Person GetPersonFromReader(SqlCeDataReader reader)
+        {
+            if (reader != null)
+            {
+                Person person = new Person();
+                person.PersonID = (long)reader["PersonID"];
+                person.FirstName = reader["FirstName"].ToString();
+                person.LastName = reader["LastName"].ToString();
+                person.SetAddress(AddressDB.GetAddressFromReader(reader));
+                person.DateOfBirth = DateTime.Parse(reader["DateOfBirth"].ToString());
+                Person.PersonTypes personType;
+                Enum.TryParse<Person.PersonTypes>(reader["PersonType"].ToString(), out personType);
+                person.PersonType = personType;
+                person.Email = reader["Email"].ToString();
+                person.Password = reader["Password"].ToString();
+
+                return person;
+            }
+            return null;
+        }
+
         public static bool Login(string email, string password)
         {
             string _query = string.Format("SELECT * FROM Person P " +
@@ -47,46 +68,26 @@ namespace CaseStudy.DataAccess
 
             using (SqlCeDataReader reader = CaseStudyDB.ExecuteReader(_query))
             {
-                if(reader != null && reader.Read())
+                if (reader != null && reader.Read())
                 {
-                    Address address = new Address();
-                    address.AddressID = (long)reader["AddressID"];
-                    address.Street = reader["Street"].ToString();
-                    address.City = reader["City"].ToString();
-                    address.State = reader["State"].ToString();
-                    address.Zip = (int)reader["Zip"];
-
-                    Person person = new Person();
-                    person.PersonID = (long)reader["PersonID"];
-                    person.FirstName = reader["FirstName"].ToString();
-                    person.LastName = reader["LastName"].ToString();
-                    person.SetAddress(address);
-                    person.DateOfBirth = DateTime.Parse(reader["DateOfBirth"].ToString());
-                    Person.PersonTypes personType;
-                    Enum.TryParse<Person.PersonTypes>(reader["PersonType"].ToString(), out personType);
-                    person.PersonType = personType;
-                    person.Email = reader["Email"].ToString();
-                    person.Password = reader["Password"].ToString();
-
-                    Customer customer;
                     if (!reader.IsDBNull(reader.GetOrdinal("CustomerID")))
                     {
-                        customer = (Customer)person; customer.CustomerID = (long)reader["CustomerID"];
-                        customer.PersonID = (long)reader["PersonID"];
-                        if (!reader.IsDBNull(reader.GetOrdinal("ResponsiblePartyID")))
+                        Customer customer = CustomerDB.GetCustomerFromReader(reader);
+                        if (customer != null)
                         {
-                            customer.ResponsiblePartyID = (long)reader["ResponsiblePartyID"];
-
+                            UserInfo.SetUser(customer);
+                            return true;
                         }
-
-                        Customer.Types type;
-                        Enum.TryParse<Customer.Types>(reader["Type"].ToString(), out type);
-                        customer.Type = type;
-                        UserInfo.SetUser(customer);
-                        return true;
                     }
-                    UserInfo.SetUser(person);
-                    return true;
+                    else
+                    {
+                        Person person = GetPersonFromReader(reader);
+                        if (person != null)
+                        {
+                            UserInfo.SetUser(person);
+                            return true;
+                        }
+                    }
                 }
                 return false;
             }

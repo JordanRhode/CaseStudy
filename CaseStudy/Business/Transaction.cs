@@ -7,7 +7,7 @@ namespace CaseStudy.Business
 {
     public class Transaction
     {
-        private List<TransactionProducts> transactionProducts;
+        public List<TransactionProduct> transactionProducts;
         #region Properties
         private long? _transactionID = null;
         public long? TransactionID
@@ -23,11 +23,25 @@ namespace CaseStudy.Business
             set { _customerID = value; }
         }
 
+        private Customer _customer = null;
+        public Customer Customer
+        {
+            get { return _customer; }
+            set { _customer = value; }
+        }
+
         private long? _responsiblePartyID = null;
         public long? ResponsiblePartyID
         {
             get { return _responsiblePartyID; }
             set { _responsiblePartyID = value; }
+        }
+
+        private Customer _responsibleParty = null;
+        public Customer ResponsibleParty
+        {
+            get { return _responsibleParty; }
+            set { _responsibleParty = value; }
         }
 
         private DateTime? _transactionDate = null;
@@ -50,17 +64,26 @@ namespace CaseStudy.Business
             get { return _totalPrice; }
             set { _totalPrice = value; }
         }
-        #endregion
 
-        public long CalculateTotalPrice()
+        private List<TransactionProduct> _transactionProducts = null;
+        public IEnumerable<TransactionProduct> TransactionProducts
         {
-            long totalPrice = 0;
-            foreach (Product product in _products.Keys)
+            get { return _transactionProducts; }
+        }
+        #endregion
+      
+        public void AddTransactionProduct(TransactionProduct product)
+        {
+            if(_transactionProducts == null)
             {
-                totalPrice += (product.Price.Value * _products[product]);
+                _transactionProducts = new List<TransactionProduct>();
             }
-            return totalPrice;
+            _transactionProducts.Add(product);
         }
 
+        public override string ToString()
+        {
+            return string.Format("{0} - {1} - ${2}", Customer.FullName, _transactionDate.Value.ToShortDateString(), _totalPrice);
+        }
     }
 }

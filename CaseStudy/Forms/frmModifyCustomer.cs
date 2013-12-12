@@ -59,13 +59,26 @@ namespace CaseStudy.Forms
                     _customerToModify.PersonType = Person.PersonTypes.Customer;
                     _customerToModify.SetAddress(base.responsibleParty.Address);
                     base.responsibleParty.AddDependant(_customerToModify);
-                    //add customer as dependant of responsible party
                 }
 
                 base.customer = _customerToModify;
 
                 base.Close();
             }
+        }
+
+        internal override void chkResponsibleParty_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!chkResponsibleParty.Checked && _customerToModify.Dependants != null)
+            {
+                if (_customerToModify.Dependants.Count > 0)
+                {
+                    MessageBox.Show(string.Format("{0} has dependants and must stay a responsible party.",
+                        _customerToModify.FirstName));
+                    chkResponsibleParty.Checked = true;
+                }
+            }
+            base.chkResponsibleParty_CheckedChanged(sender, e);
         }
 
         private void FillFormData()
@@ -87,7 +100,10 @@ namespace CaseStudy.Forms
                 else
                 {
                     base.chkResponsibleParty.CheckState = CheckState.Unchecked;
-                    base.comboResponsibleParty.SelectedIndex = base.comboResponsibleParty.Items.IndexOf(_customerToModify.ResponsibleParty);
+                    if (_customerToModify.ResponsibleParty != null)
+                    {
+                        base.comboResponsibleParty.SelectedIndex = base.comboResponsibleParty.Items.IndexOf(_customerToModify.ResponsibleParty);
+                    }
                     base.UpdateEnabledControls(false);
                 }
                 base.txtStreet.Text = _customerToModify.Address.Street;
@@ -96,7 +112,5 @@ namespace CaseStudy.Forms
                 base.txtZip.Text = _customerToModify.Address.Zip.ToString();
             }
         }
-
-        
     }
 }

@@ -118,7 +118,7 @@ namespace CaseStudy.Business
 
         public override string ToString()
         {
-            return string.Format("{0}, Type: {1}, Customer Type: {2}", this.FullName, base.PersonType, this.Type);
+            return string.Format("{0} - {1} - {2}", this.FullName, this.Type, base.PersonType);
         }
 
         public override int GetHashCode()

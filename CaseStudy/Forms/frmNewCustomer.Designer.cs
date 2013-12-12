@@ -2,9 +2,9 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
-namespace CaseStudy
+namespace CaseStudy.Forms
 {
-    partial class frmNewCustomer
+    partial class frmNewCustomer : Form
     {
         /// <summary>
         /// Required designer variable.
@@ -185,6 +185,7 @@ namespace CaseStudy
             // 
             // txtState
             // 
+            this.txtState.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtState.Location = new System.Drawing.Point(104, 113);
             this.txtState.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.txtState.Name = "txtState";
@@ -297,7 +298,7 @@ namespace CaseStudy
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(197, 29);
             this.txtEmail.TabIndex = 1;
-            this.txtEmail.Tag = "Last Name";
+            this.txtEmail.Tag = "Email";
             // 
             // lblEmail
             // 
@@ -319,7 +320,7 @@ namespace CaseStudy
             this.txtPassword.ShortcutsEnabled = false;
             this.txtPassword.Size = new System.Drawing.Size(197, 29);
             this.txtPassword.TabIndex = 2;
-            this.txtPassword.Tag = "Last Name";
+            this.txtPassword.Tag = "Password";
             // 
             // txtPasswordConfirm
             // 
@@ -329,7 +330,7 @@ namespace CaseStudy
             this.txtPasswordConfirm.PasswordChar = '*';
             this.txtPasswordConfirm.Size = new System.Drawing.Size(197, 29);
             this.txtPasswordConfirm.TabIndex = 3;
-            this.txtPasswordConfirm.Tag = "Last Name";
+            this.txtPasswordConfirm.Tag = "Confirm Password";
             // 
             // lblConfirmPassword
             // 

@@ -63,6 +63,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base\Comm.cs" />
     <Compile Include="Base\Controller.cs" />
     <Compile Include="Base\UserInfo.cs" />
     <Compile Include="Business\Address.cs" />
@@ -76,6 +77,7 @@
     <Compile Include="DataAccess\AddressDB.cs" />
     <Compile Include="DataAccess\CaseStudyDB.cs" />
     <Compile Include="DataAccess\CustomerDB.cs" />
+    <Compile Include="DataAccess\InvoiceDB.cs" />
     <Compile Include="DataAccess\PersonDB.cs" />
     <Compile Include="DataAccess\ProductDB.cs" />
     <Compile Include="DataAccess\TransactionDB.cs" />
@@ -126,6 +128,12 @@
       <DependentUpon>frmNewCustomer.cs</DependentUpon>
     </Compile>
     <Compile Include="Base\Program.cs" />
+    <Compile Include="Forms\frmNewInvoice.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmNewInvoice.Designer.cs">
+      <DependentUpon>frmNewInvoice.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\frmNewProduct.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -153,8 +161,14 @@
       <DependentUpon>frmCustomerList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmModifyCustomer.resx" />
+    <EmbeddedResource Include="Forms\frmModifyProduct.resx">
+      <DependentUpon>frmModifyProduct.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmNewCustomer.resx">
       <DependentUpon>frmNewCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmNewInvoice.resx">
+      <DependentUpon>frmNewInvoice.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmNewProduct.resx">
       <DependentUpon>frmNewProduct.cs</DependentUpon>
@@ -170,6 +184,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Business\BusinessClasses.cd" />
     <None Include="CaseStudyDBDataSet.xsc">
@@ -203,6 +218,7 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\squairy_light.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">

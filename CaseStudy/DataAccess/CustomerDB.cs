@@ -24,6 +24,15 @@ namespace CaseStudy.DataAccess
             return GetCustomersFromDB(_query.ToString());
         }
 
+        public static Customer GetCustomerByID(long customerID)
+        {
+            string _query = string.Format("SELECT * FROM Customer C " +
+                "JOIN Person P ON P.PersonID = C.PersonID " +
+                "JOIN Address A ON A.AddressID = P.AddressID " +
+                "WHERE C.CustomerID = {0}", customerID);
+            return GetCustomersFromDB(_query).FirstOrDefault();
+        }
+
         public static List<Customer> GetDependants(long? responsiblePartyID)
         {
             string _query = string.Format("SELECT * FROM Customer C " +
@@ -42,36 +51,15 @@ namespace CaseStudy.DataAccess
                 {
                     while (reader != null & reader.Read())
                     {
-                        Customer customer = new Customer();
-                        customer.CustomerID = (long)reader["CustomerID"];
-                        customer.PersonID = (long)reader["PersonID"];
-                        if (!reader.IsDBNull(reader.GetOrdinal("ResponsiblePartyID")))
+                        Customer customer = GetCustomerFromReader(reader);
+                        if (customer != null)
                         {
-                            customer.ResponsiblePartyID = (long)reader["ResponsiblePartyID"];
-                            
+                            customers.Add(customer);
                         }
-
-                        Customer.Types type;
-                        Enum.TryParse<Customer.Types>(reader["Type"].ToString(), out type);
-                        customer.Type = type;
-                        customer.FirstName = reader["FirstName"].ToString();
-                        customer.LastName = reader["LastName"].ToString();
-                        customer.DateOfBirth = DateTime.Parse(reader["DateOfBirth"].ToString());
-                        Person.PersonTypes personType;
-                        Enum.TryParse<Person.PersonTypes>(reader["PersonType"].ToString(), out personType);
-                        customer.PersonType = personType;
-                        customer.Email = reader["Email"].ToString();
-                        customer.Password = reader["Password"].ToString();
-
-                        Address address = new Address();
-                        address.AddressID = (long)reader["AddressID"];
-                        address.Street = reader["Street"].ToString();
-                        address.City = reader["City"].ToString();
-                        address.State = reader["State"].ToString();
-                        address.Zip = (int)reader["Zip"];
-
-                        customer.SetAddress(address);
-                        customers.Add(customer);
+                        else
+                        {
+                            throw new Exception("Can't create Customer from DB");
+                        }
                     }
                 }
             }
@@ -115,15 +103,44 @@ namespace CaseStudy.DataAccess
         {
             if(customer.PersonType == Person.PersonTypes.ResponsibleParty)
             {
-                AddressDB.DeleteAddress(customer.Address);
+                AddressDB.DeleteAddress(customer.Address.AddressID);
             }
 
+            TransactionDB.DeleteTransactionsByCustomer((long)customer.CustomerID);
             PersonDB.DeletePerson(customer.PersonID);
-            
 
             string _query = string.Format("DELETE FROM Customer WHERE CustomerID = {0}", customer.CustomerID);
             CaseStudyDB.ExecuteNonQuery(_query);
+        }
 
+        public static Customer GetCustomerFromReader(SqlCeDataReader reader)
+        {
+            if (reader != null)
+            {
+                Customer customer = new Customer();
+                customer.CustomerID = (long)reader["CustomerID"];
+                if (!reader.IsDBNull(reader.GetOrdinal("ResponsiblePartyID")))
+                {
+                    customer.ResponsiblePartyID = (long)reader["ResponsiblePartyID"];
+
+                }
+                Customer.Types type;
+                Enum.TryParse<Customer.Types>(reader["Type"].ToString(), out type);
+                customer.Type = type;
+                customer.PersonID = (long)reader["PersonID"];
+                customer.FirstName = reader["FirstName"].ToString();
+                customer.LastName = reader["LastName"].ToString();
+                customer.DateOfBirth = DateTime.Parse(reader["DateOfBirth"].ToString());
+                Person.PersonTypes personType;
+                Enum.TryParse<Person.PersonTypes>(reader["PersonType"].ToString(), out personType);
+                customer.PersonType = personType;
+                customer.Email = reader["Email"].ToString();
+                customer.Password = reader["Password"].ToString();
+                customer.SetAddress(AddressDB.GetAddressFromReader(reader));
+
+                return customer;
+            }
+            return null;
         }
 
     }

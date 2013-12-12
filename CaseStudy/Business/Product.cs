@@ -65,7 +65,7 @@ namespace CaseStudy.Business
 
         public override string ToString()
         {
-            return string.Format("Product: {0}, Description: {1}, Type: {2}", this.Name, this.Description, this.Type);
+            return string.Format("{0} - {1}", this.Name, this.Type);
         }
 
         public override int GetHashCode()

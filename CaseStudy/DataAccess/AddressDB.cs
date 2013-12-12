@@ -32,9 +32,9 @@ namespace CaseStudy.DataAccess
             return new Address();
         }
 
-        public static void DeleteAddress(Address address)
+        public static void DeleteAddress(long? addressID)
         {
-            string _query = string.Format("DELETE FROM Address WHERE AddressID = {0}", address);
+            string _query = string.Format("DELETE FROM Address WHERE AddressID = {0}", addressID);
             try
             {
                 using (SqlCeConnection conn = CaseStudyDB.GetConnection())
@@ -65,6 +65,18 @@ namespace CaseStudy.DataAccess
             {
                 MessageBox.Show(string.Format("Error Adding Address {0}", ex.Message));
             }
+        }
+
+        public static Address GetAddressFromReader(SqlCeDataReader reader)
+        {
+            Address address = new Address();
+            address.AddressID = (long)reader["AddressID"];
+            address.Street = reader["Street"].ToString();
+            address.City = reader["City"].ToString();
+            address.State = reader["State"].ToString();
+            address.Zip = (int)reader["Zip"];
+
+            return address;
         }
     }
 }

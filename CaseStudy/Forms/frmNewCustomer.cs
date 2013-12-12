@@ -1,13 +1,14 @@
 ﻿using CaseStudy.Base;
 using CaseStudy.Business;
 using CaseStudy.DataAccess;
+using CaseStudy.Forms;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace CaseStudy
+namespace CaseStudy.Forms
 {
-    public partial class frmNewCustomer : Form
+    public partial class frmNewCustomer
     {
         private List<Customer> responsiblePartyCustomers = null;
         internal Customer responsibleParty = null;
@@ -16,7 +17,10 @@ namespace CaseStudy
         {
             InitializeComponent();
             responsiblePartyCustomers = CustomerDB.GetCustomers(true);
-            comboResponsibleParty.DataSource = responsiblePartyCustomers;
+            foreach(Customer c in responsiblePartyCustomers)
+            {
+                comboResponsibleParty.Items.Add(c);
+            }
             comboType.DataSource = Enum.GetValues(typeof(Customer.Types));
             UpdateEnabledControls(false);
         }
@@ -64,15 +68,15 @@ namespace CaseStudy
 
         internal bool IsValidData()
         {
-            return Validator.IsPresent(txtFirstName) &&
-                   Validator.IsPresent(txtLastName) &&
-                   Validator.IsEmail(txtEmail) &&
-                   Validator.IsPresent(txtStreet) &&
-                   Validator.IsPresent(txtCity) &&
-                   Validator.IsPresent(txtState) &&
+            return Validator.IsEmail(txtEmail) &&
                    Validator.IsPresent(txtPassword) &&
                    Validator.IsPresent(txtPasswordConfirm) &&
                    Validator.IsEqualTo(txtPassword, txtPasswordConfirm) &&
+                   Validator.IsPresent(txtFirstName) &&
+                   Validator.IsPresent(txtLastName) &&
+                   Validator.IsPresent(txtStreet) &&
+                   Validator.IsPresent(txtCity) &&
+                   Validator.IsStateCode(txtState) &&
                    Validator.IsInt(txtZip);
         }
 
@@ -86,7 +90,7 @@ namespace CaseStudy
 
         }
 
-        private void comboResponsibleParty_IndexChanged(object sender, EventArgs e)
+        internal virtual void comboResponsibleParty_IndexChanged(object sender, EventArgs e)
         {
             if (!chkResponsibleParty.Checked)
             {
@@ -100,13 +104,16 @@ namespace CaseStudy
 
         private void FillAddressWithResponsibleParty()
         {
-            txtStreet.Text = responsibleParty.Address.Street;
-            txtCity.Text = responsibleParty.Address.City;
-            txtState.Text = responsibleParty.Address.State;
-            txtZip.Text = responsibleParty.Address.Zip.ToString();
+            if (responsibleParty != null)
+            {
+                txtStreet.Text = responsibleParty.Address.Street;
+                txtCity.Text = responsibleParty.Address.City;
+                txtState.Text = responsibleParty.Address.State;
+                txtZip.Text = responsibleParty.Address.Zip.ToString();
+            }
         }
 
-        private void chkResponsibleParty_CheckedChanged(object sender, EventArgs e)
+        internal virtual void chkResponsibleParty_CheckedChanged(object sender, EventArgs e)
         {
             if (chkResponsibleParty.Checked)
             {

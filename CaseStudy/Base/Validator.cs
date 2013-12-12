@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -27,6 +28,7 @@ namespace CaseStudy.Base
                 {
                     MessageBox.Show(string.Format("{0} is a required field.", textBox.Tag), Title);
                     textBox.Focus();
+                    textBox.SelectAll();
                     return false;
                 }
             }
@@ -37,6 +39,7 @@ namespace CaseStudy.Base
                 {
                     MessageBox.Show(string.Format("{0} is a required field.", richTextBox.Tag), Title);
                     richTextBox.Focus();
+                    richTextBox.SelectAll();
                     return false;
                 }
             }
@@ -45,16 +48,20 @@ namespace CaseStudy.Base
 
         public static bool IsEmail(TextBox textBox)
         {
-            string val = textBox.Text;
-            if (val != "")
+            if (IsPresent(textBox))
             {
-                string pattern = @"^[a-z][a-z|0-9|]*([_][a-z|0-9]+)*([.][a-z|0-9]+([_][a-z|0-9]+)*)?@[a-z][a-z|0-9|]*\.([a-z][a-z|0-9]*(\.[a-z][a-z|0-9]*)?)$";
-                Match match = Regex.Match(val.Trim(), pattern, RegexOptions.IgnoreCase);
-
-                if (match.Success)
+                try
                 {
-                    return true;
+                    MailAddress address = new MailAddress(textBox.Text);
                 }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message + " email@domain.com");
+                    textBox.Focus();
+                    textBox.SelectAll();
+                    return false;
+                }
+                return true;
             }
             return false;
         }
@@ -73,7 +80,7 @@ namespace CaseStudy.Base
                 {
                     MessageBox.Show(string.Format("{0} must be an integer number.", textBox.Tag), Title);
                     textBox.Focus();
-                    return false;
+                    textBox.SelectAll();
                 }
             }
             return false;
@@ -81,11 +88,28 @@ namespace CaseStudy.Base
 
         public static bool IsEqualTo(TextBox txt1, TextBox txt2)
         {
-            if(txt1.Text == txt2.Text)
+            if (txt1.Text == txt2.Text)
             {
                 return true;
             }
-            MessageBox.Show("Passwords must be equal");
+            MessageBox.Show("Passwords must be equal.");
+            txt1.Focus();
+            txt1.SelectAll();
+            return false;
+        }
+
+        public static bool IsStateCode(TextBox textBox)
+        {
+            if (IsPresent(textBox))
+            {
+                if (Regex.IsMatch(textBox.Text, @"^[A-Za-z]{2}$"))
+                {
+                    return true;
+                }
+                MessageBox.Show("Must be a valid two character state code");
+                textBox.Focus();
+                textBox.SelectAll();
+            }
             return false;
         }
     }

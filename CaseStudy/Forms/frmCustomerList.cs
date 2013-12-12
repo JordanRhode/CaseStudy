@@ -35,8 +35,10 @@ namespace CaseStudy.Forms
                 {
                     c.ResponsibleParty = customers.FirstOrDefault(cu => cu.CustomerID == c.ResponsiblePartyID);
                 }
-                lstCustomers.Items.Add(c.ToString());
+                lstCustomers.Items.Add(c);
             }
+            lstCustomers.Sorted = true;
+            UpdateEnabledControls();
         }
 
         private void btnAddCustomer_Click(object sender, EventArgs e)
@@ -53,10 +55,9 @@ namespace CaseStudy.Forms
 
         private void btnDeleteCustomer_Click(object sender, EventArgs e)
         {
-            int i = lstCustomers.SelectedIndex;
-            if (i != -1)
+            if (lstCustomers.SelectedIndex != -1)
             {
-                Customer customer = customers[i];
+                Customer customer = (Customer)lstCustomers.SelectedItem;
                 string message = string.Format("Are you sure you want to delete {0}?", customer.FullName);
                 DialogResult button = MessageBox.Show(message, "Confirm Delete", MessageBoxButtons.YesNo);
                 if (button == DialogResult.Yes)
@@ -75,17 +76,31 @@ namespace CaseStudy.Forms
 
         private void CustomerIndexChanged(object sender, EventArgs e)
         {
+            UpdateEnabledControls();
+        }
+
+        private void UpdateEnabledControls()
+        {
+            if(lstCustomers.SelectedIndex != -1)
+            {
                 btnModifyCustomer.Enabled = true;
                 btnDeleteCustomer.Enabled = true;
                 btnEmailCustomer.Enabled = true;
+            }
+            else
+            {
+                btnModifyCustomer.Enabled = false;
+                btnDeleteCustomer.Enabled = false;
+                btnEmailCustomer.Enabled = false;
+            }
         }
 
         private void btnModifyCustomer_Click(object sender, EventArgs e)
         {
-            int i = lstCustomers.SelectedIndex;
-            if (i != -1)
+            if (lstCustomers.SelectedIndex != -1)
             {
-                frmModifyCustomer modifyCustomerForm = new frmModifyCustomer(customers[i]);
+                int i = customers.IndexOf((Customer)lstCustomers.SelectedItem);
+                frmModifyCustomer modifyCustomerForm = new frmModifyCustomer((Customer)lstCustomers.SelectedItem);
                 Customer customer = modifyCustomerForm.GetNewCustomer();
                 if (customer != null)
                 {
